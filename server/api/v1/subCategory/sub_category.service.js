@@ -162,11 +162,11 @@ addUpdateSubCategory = (sub_categoryID, userID, categoryID, sub_categoryName, de
       field: "modifiedDate",
       fValue: d3.timeFormat(dbDateFormat)(new Date())
     }
-    var result;
+    var r;
     async.series([
       function (cb) {
-        sub_categoryDAL.checkSubCategoryIDValid(sub_categoryID, (r) => {
-          result = r;
+        sub_categoryDAL.checkSubCategoryIDValid(sub_categoryID, (result) => {
+          r = result;
           if (result.status === false) {
             cb(result, null);
             return;
@@ -188,7 +188,7 @@ addUpdateSubCategory = (sub_categoryID, userID, categoryID, sub_categoryName, de
         fieldValueInsert.push(modifiedObj);
         debug("resulted final Update sub_category object -> ", fieldValueInsert);
         sub_categoryDAL.updateSubCategory(fieldValueInsert, sub_categoryID, (r) => {
-          result = r;
+          r = result;
           if (result.status === false) {
             cb(result, null);
           } else {

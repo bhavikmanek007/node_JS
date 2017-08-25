@@ -53,13 +53,16 @@ var getSubCategory = (sub_categoryID, isActive, dbServerDateTime, limit, cb) => 
   var sub_categoryFilter = {
     and: []
   }
-  if (sub_categoryID > -1) {
+  if (sub_categoryID > 0) {
     sub_categoryFilter.and.push({
       field: 'SCM.pk_subcategoryID',
       encloseField: false,
       operator: 'EQ',
       value: sub_categoryID
     });
+  }
+  else{
+    delete getSubCategoryQuery.filter;
   }
   // if (isActive > -1) {
   //   sub_categoryFilter.and.push({
@@ -68,11 +71,11 @@ var getSubCategory = (sub_categoryID, isActive, dbServerDateTime, limit, cb) => 
   //     value: isActive
   //   });
   // }
-  if (sub_categoryID < 0 && isActive < 0) {
-    delete getSubCategoryQuery.filter;
-  } else {
-    getSubCategoryQuery.filter = sub_categoryFilter;
-  }
+  // if (sub_categoryID < 0 && isActive < 0) {
+  //   delete getSubCategoryQuery.filter;
+  // } else {
+  //   getSubCategoryQuery.filter = sub_categoryFilter;
+  // }
 
   // getCategoryQuery.limit = limit;
   common.executeQuery(getSubCategoryQuery, cb);

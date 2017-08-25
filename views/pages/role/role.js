@@ -82,6 +82,7 @@ role = {
     role.formMode = "edit";
     event.preventDefault();
     var currentRowData = currentRow.data();
+    console.log(currentRowData);
     if (currentRowData != undefined && currentRowData.role_id > 0) {
       common.showHideDiv(false, objModules.role);
       role.role_id = currentRowData.role_id;

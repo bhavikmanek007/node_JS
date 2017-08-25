@@ -6,6 +6,8 @@
    * @return {[type]}     [description]
    */
   function createApiUrl(api) {
+    var path = window.location.origin + Constants.Api.baseUrl + api;
+    // alert(path);
     return window.location.origin + Constants.Api.baseUrl + api;
   }
   /**

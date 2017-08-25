@@ -41,6 +41,11 @@ var query = {
              alias: 'sub_category_id'
            },
            {
+             field: 'SCM.fk_categoryID',
+             encloseField: false,
+             alias: 'category_type_id'
+           },
+           {
              field: 'CM.category',
              encloseField: false,
              alias: 'category_name'

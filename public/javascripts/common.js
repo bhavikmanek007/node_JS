@@ -10,6 +10,11 @@ objModules.category = {
     displayName: "Category",
     tableId: "2"
 };
+objModules.subCategory = {
+    name: "subCategory",
+    displayName: "Sub Category",
+    tableId: "6"
+};
 
 objModules.adminUser = {
     name: "adminUser",
@@ -274,6 +279,7 @@ common = {
      * @return {[type]}            [description]
      */
     showHideDiv: function (isshowGrid, moduleName) {
+
         if (isshowGrid == true) {
             $('#divAdd' + moduleName.displayName).hide();
             $('#add' + moduleName.displayName).show();

@@ -14,6 +14,11 @@ Constants = {
         getCategory: "/category/get-category/",
         addUpdateCategory: "/category/addupdate-category/",
         deleteCategory: "/category/remove-category/",
+        drpgetCategory: "/category/get-category/-1/-1",
+        getSubCategory: "/subCategory/get-sub_category/",
+        addUpdateSubCategory: "/subCategory/addUpdateSubCategory/",
+        deleteSubCategory: "/subCategory/remove-sub_category/",
+
         getAdminUser: "/user/get-adminuser/",
         removeAdminUser: "/user/remove-adminuser/",
         getRoles: "/user/get-userrole/",
