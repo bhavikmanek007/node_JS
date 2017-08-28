@@ -78,13 +78,17 @@ category = {
         category.saveDisabled = true;
         var data = {};
         data = common.getFormValues($("#frmCategory"));
+        // alert(category.sub_category_id);
         data.sub_category_id = category.category_id;
         data.imageObj = category.imageObj;
+        // data.sub_category_id = currentRow.data().sub_category_id;
+        console.log("1111111111111111111111111111111111111111111111111111");
+        console.log(data);
         var headers = {
           Authorization: $.cookie(Constants.User.authToken)
         };
         Api.post(Constants.Api.addUpdateSubCategory, headers, data, function (error, res) {
-          console.log(data);
+          // console.log(data);
           // alert("on");
           if (res != undefined && res.status == true) {
             common.showMessage(res.data.message, false);
@@ -152,7 +156,7 @@ category = {
       dataSet = dataSet.data;
       // console.log(dataSet);
       for (var i = 0; i < dataSet.length; i++) {
-        console.log(dataSet[i].category_id);
+        // console.log(dataSet[i].category_id);
         selectOptions += '<option value="' + dataSet[i].category_id + '">' + dataSet[i].category_name + '</option>'
       }
       $(selectId).append(selectOptions);
@@ -164,14 +168,14 @@ category = {
   edit: function (currentRow) {
     event.preventDefault();
     // alert(currentRow);
-    console.log(currentRow);
+    // console.log(currentRow);
     var currentCategory = currentRow.data();
     if (currentCategory != undefined && currentCategory.sub_category_id > 0) {
       category.category_id = currentCategory.category_id;
       common.showHideDiv(false, objModules.category);
       console.log(currentCategory);
       common.fillFormValues($("#frmCategory"), currentCategory);
-
+      category.category_id = currentRow.data().sub_category_id;
       $('#imageCategory').attr("src", currentCategory.image_name);
     }
   },

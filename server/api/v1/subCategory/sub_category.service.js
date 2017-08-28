@@ -21,7 +21,7 @@ var series = require('async/series');
  */
 var addUpdateSubCategoryService = (request, cb) => {
   debug("sub_category.service -> updateSubCategoryService", request.body);
-  if (request.body.sub_category_name === undefined || request.body.sub_category_id === undefined || request.body.sub_category_id === "" || request.body.sub_category_name === "") {
+  if (request.body.sub_category === undefined || request.body.sub_category_id === undefined || request.body.sub_category_id === "" || request.body.sub_category === "") {
     cb({
       status: false,
       error: constant.requestMessages.ERR_INVALID_CATEGORY_ADD_REQUEST
@@ -30,8 +30,8 @@ var addUpdateSubCategoryService = (request, cb) => {
   }
   var sub_categoryID = request.body.sub_category_id;
   var userID = request.session.userInfo.userId;
-  var categoryID = request.body.category_id;
-  var sub_categoryName = request.body.sub_category_name;
+  var categoryID = request.body.category_type_id;
+  var sub_categoryName = request.body.sub_category;
   var description = request.body.description;
   var imageObj = "";
   var image = '';
@@ -175,22 +175,22 @@ addUpdateSubCategory = (sub_categoryID, userID, categoryID, sub_categoryName, de
       });
     },
       function (cb) {
-        if (result.content.length === 0) {
+        if (r.content.length === 0) {
             cb("constant.categoryMessages.ERR_REQUESTED_USER_NO_PERMISSION_OF_CATEGORY_UPDATE", null);
             return;
           }
           cb();
       },
       function (cb) {
-        if (result.content[0].imageName != "" && result.content[0].imageName != undefined && fieldValueInsert[3].fValue == "")
-          fieldValueInsert[3].fValue = result.content[0].imageName;
+        if (r.content[0].imageName != "" && r.content[0].imageName != undefined && fieldValueInsert[3].fValue == "")
+          fieldValueInsert[3].fValue = r.content[0].imageName;
 
         fieldValueInsert.push(modifiedObj);
         debug("resulted final Update sub_category object -> ", fieldValueInsert);
-        sub_categoryDAL.updateSubCategory(fieldValueInsert, sub_categoryID, (r) => {
+        sub_categoryDAL.updateSubCategory(fieldValueInsert, sub_categoryID, (result) => {
           r = result;
-          if (result.status === false) {
-            cb(result, null);
+          if (r.status === false) {
+            cb(r, null);
           } else {
             cb();
           }
@@ -307,7 +307,7 @@ var getSubCategoryService = (request, cb) => {
 var deleteSubCategoryService = (request, cb) => {
   debug("SubCategory.service -> deleteSubCategoryService", request.params.sub_categoryID);
 
-  if (request.params.sub_categoryID === undefined) {
+  if (request.params.sub_category_id === undefined) {
     cb({
       status: false,
       error: constant.requestMessages.ERR_INVALID_CATEGORY_DELETE_REQUEST
