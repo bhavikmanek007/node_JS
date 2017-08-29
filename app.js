@@ -72,5 +72,8 @@ app.use(function(err, req, res, next) {
   });
 });
 
-
+process.on("unhandeledRejection",function(err){
+  console.log(err);
+  process.exit();
+})
 module.exports = app;

@@ -14,11 +14,11 @@ var dbDateFormat = constant.appConfig.DB_DATE_FORMAT;
  * @param  {Function} cb         [description]
  * @return {[type]}              [description]
  */
-var createSubCategory = (fieldValue, cb) => {
+var createSubCategory = async function (fieldValue) {
   debug("sub_category.DAL -> createSubCategory");
   var createSubCategory = common.cloneObject(query.createSubCategory);
   createSubCategory.insert = fieldValue;
-  common.executeQuery(createSubCategory, cb);
+  return await common.executeQuery(createSubCategory);
 };
 
 /**
@@ -30,12 +30,12 @@ var createSubCategory = (fieldValue, cb) => {
  * @param  {Function} cb         [description]
  * @return {[type]}              [description]
  */
-var updateSubCategory = (fieldValue, sub_categoryID, cb) => {
+var updateSubCategory = async function (fieldValue, sub_categoryID) {
   debug("sub_category.DAL -> updateSubCategory");
   var updateSubCategory = common.cloneObject(query.updateSubCategory);
   updateSubCategory.update = fieldValue;
   updateSubCategory.filter.value = sub_categoryID;
-  common.executeQuery(updateSubCategory, cb);
+  return await common.executeQuery(updateSubCategory);
 };
 
 /**
@@ -47,7 +47,7 @@ var updateSubCategory = (fieldValue, sub_categoryID, cb) => {
  * @param  {Function} cb               [description]
  * @return {[type]}                    [description]
  */
-var getSubCategory = (sub_categoryID, isActive, dbServerDateTime, limit, cb) => {
+var getSubCategory = async function (sub_categoryID, isActive, dbServerDateTime, limit) {
   debug("sub_category.DAL -> getSubCategory");
   var getSubCategoryQuery = common.cloneObject(query.getSubCategoryQuery);
   var sub_categoryFilter = {
@@ -64,21 +64,10 @@ var getSubCategory = (sub_categoryID, isActive, dbServerDateTime, limit, cb) => 
   else{
     delete getSubCategoryQuery.filter;
   }
-  // if (isActive > -1) {
-  //   sub_categoryFilter.and.push({
-  //     field: 'isActive',
-  //     operator: 'EQ',
-  //     value: isActive
-  //   });
-  // }
-  // if (sub_categoryID < 0 && isActive < 0) {
-  //   delete getSubCategoryQuery.filter;
-  // } else {
-  //   getSubCategoryQuery.filter = sub_categoryFilter;
-  // }
 
-  // getCategoryQuery.limit = limit;
-  common.executeQuery(getSubCategoryQuery, cb);
+  console.log("############################################################################dal");
+  console.log(common.executeQuery(getSubCategoryQuery));
+  return await common.executeQuery(getSubCategoryQuery);
 };
 
 
@@ -92,7 +81,7 @@ var getSubCategory = (sub_categoryID, isActive, dbServerDateTime, limit, cb) => 
  * @param  {Function} cb         [description]
  * @return {[type]}              [description]
  */
-var checkSubCategoryIDValid = (sub_categoryID, cb) => {
+var checkSubCategoryIDValid = async function (sub_categoryID) {
   debug("sub_category.DAL -> checkDeleteSubCategoryIDValid");
   var checkCateGoryValid = common.cloneObject(query.checkCateGoryValidQuery);
   checkCateGoryValid.filter = {
@@ -102,7 +91,7 @@ var checkSubCategoryIDValid = (sub_categoryID, cb) => {
       value: sub_categoryID
     }]
   }
-  common.executeQuery(checkCateGoryValid, cb);
+  return await common.executeQuery(checkCateGoryValid);
 };
 
 /**
@@ -113,11 +102,11 @@ var checkSubCategoryIDValid = (sub_categoryID, cb) => {
  * @param  {Function} cb         [description]
  * @return {[type]}              [description]
  */
-var removeSubCategory = (sub_categoryId, cb) => {
+var removeSubCategory = async function (sub_categoryId) {
   debug("sub_category.DAL -> removeSubCategory");
   var removeSubCategoryQuery = common.cloneObject(query.removeSubCategoryQuery);
   removeSubCategoryQuery.filter.value = sub_categoryId;
-  common.executeQuery(removeSubCategoryQuery, cb);
+  return await common.executeQuery(removeSubCategoryQuery);
 };
 
 /**
@@ -128,7 +117,7 @@ var removeSubCategory = (sub_categoryId, cb) => {
  * @param  {Function} cb         [description]
  * @return {[type]}              [description]
  */
-var checkSubCategoryIsExist = (sub_category, cb) => {
+var checkSubCategoryIsExist = async function (sub_category) {
   debug("sub_category.DAL -> checkDeleteSubCategoryIDValid");
   var checkCateGoryValid = common.cloneObject(query.checkCateGoryValidQuery);
   checkCateGoryValid.filter = {
@@ -138,7 +127,7 @@ var checkSubCategoryIsExist = (sub_category, cb) => {
       value: sub_category
     }]
   }
-  common.executeQuery(checkCateGoryValid, cb);
+  return await common.executeQuery(checkCateGoryValid);
 };
 
 
